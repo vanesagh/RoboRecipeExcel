@@ -15,5 +15,5 @@ dependencies:
       - deep-translator
       - sentence-transformers
       - openpyxl
-      #- pandas  # use when test directly in python library file
+      - pandas # use when test directly in python library file
       - rpaframework==21.0.1 # https://rpaframework.org/releasenotes.html
