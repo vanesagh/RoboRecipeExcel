@@ -73,12 +73,9 @@ Iterate Through The Whole Ingredients
             ...    ${trans_item}
             ${sim_items_dict}=    Create Dictionary Of Similar Items    ${index_list}    ${similar_items_list}
             ${similar_item}=    Ask User For The Most Similar Item    ${similar_items_list}    ${trans_item}
-            IF    '${similar_item}' == 'No encontrado. Pasar'
-                #Log    ${similar_item}
-                CONTINUE
-            ELSE
+            IF    '${similar_item}' != 'No encontrado. Pasar'
                 Log    ${index}
-                Handle Formulas    ${similar_item}    ${sim_items_dict}    ${index}    ${recipe_ws}    ${workbook}
+                Calculate Formula    ${similar_item}    ${sim_items_dict}    ${index}    ${recipe_ws}    ${workbook}
             END
         END
     END

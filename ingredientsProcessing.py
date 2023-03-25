@@ -62,16 +62,17 @@ def create_recipe_worksheet(recipe_name):
     return ws, workbook
 
 
-def handle_formulas(similar_item, sim_items_dict, index, recipe_ws, workbook):
+def calculate_formula(similar_item, sim_items_dict, index, recipe_ws, workbook):
     sim_item_index = sim_items_dict[similar_item]+2
     ingredient_row = f"D{index+2}"
     quantity = f"B{index+2}"
     r = recipe_ws[quantity]
     recipe_ws[quantity] = int(r.value)
-
-    print(r.value, type(r.value))
-    recipe_ws[ingredient_row] = f"=('Materia Prima'!F{sim_item_index}/'Materia Prima'!D{sim_item_index})*{quantity}"
-    print(ingredient_row, recipe_ws[ingredient_row])
+    recipe_ws[f"E{index+2}"] = f"""=IF('Materia Prima'!E{sim_item_index}="Kg",1/1000,1)"""
+    formula = f"('Materia Prima'!F{sim_item_index}/'Materia Prima'!D{sim_item_index})*{quantity}"
+    # print(r.value, type(r.value))
+    recipe_ws[ingredient_row] = f"""=IF('Materia Prima'!E{sim_item_index}="Kg",{formula}/1000,{formula})"""
+    # print(ingredient_row, recipe_ws[ingredient_row])
     workbook.save('Precios Pasteles.xlsx')
 
 
